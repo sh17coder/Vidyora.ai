@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .result-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .result-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .score-display {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .score-details {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .score-detail {
+            text-align: center;
+            padding: 15px;
+            min-width: 150px;
+        }
+
+        .score-detail h3 {
+            color: var(--gray);
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .score-detail p {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .difficulty-breakdown {
+            margin-bottom: 30px;
+        }
+
+        .difficulty-breakdown h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .difficulty-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .difficulty-segment {
+            height: 100%;
+            display: inline-block;
+            float: left;
+        }
+
+        .difficulty-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .difficulty-label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .recommendations {
+            background-color: rgba(67, 97, 238, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .recommendations h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .recommendations ul {
+            list-style-type: none;
+        }
+
+        .recommendations li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .recommendations li:last-child {
+            border-bottom: none;
+        }
+
+        .recommendations li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .primary-btn {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+
+        .secondary-btn {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .secondary-btn:hover {
+            background-color: rgba(67, 97, 238, 0.05);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .score-details {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .score-detail {
+                margin-bottom: 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <div class="result-header">
+            <h1>Your Test Results</h1>
+            <p>Here's how you performed on the physics assessment</p>
+        </div>
+        
+        <div class="score-display" id="scoreDisplay">0/10</div>
+        
+        <div class="score-details">
+            <div class="score-detail">
+                <h3>Correct Answers</h3>
+                <p id="correctAnswers">0</p>
+            </div>
+            <div class="score-detail">
+                <h3>Percentage</h3>
+                <p id="percentage">0%</p>
+            </div>
+            <div class="score-detail">
+                <h3>Performance</h3>
+                <p id="performanceLevel">-</p>
+            </div>
+        </div>
+        
+        <div class="difficulty-breakdown">
+            <h2>Performance by Difficulty Level</h2>
+            <div class="difficulty-bar" id="difficultyBar">
+                <!-- Segments will be added by JavaScript -->
+            </div>
+            <div class="difficulty-labels">
+                <span class="difficulty-label">Level 1</span>
+                <span class="difficulty-label">Level 2</span>
+                <span class="difficulty-label">Level 3</span>
+                <span class="difficulty-label">Level 4</span>
+                <span class="difficulty-label">Level 5</span>
+            </div>
+        </div>
+        
+        <div class="recommendations" id="recommendations">
+            <h2>Recommended Next Steps</h2>
+            <ul id="recommendationsList">
+                <!-- Recommendations will be added by JavaScript -->
+            </ul>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="action-btn primary-btn" id="viewDetailsBtn">View Detailed Results</button>
+            <button class="action-btn secondary-btn" id="retakeTestBtn">Retake Test</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the most recent test result for the current user
+            const user = firebase.auth().currentUser;
+            
+            if (user) {
+                firebase.firestore().collection('testResults')
+                    .where('userId', '==', user.uid)
+                    .orderBy('timestamp', 'desc')
+                    .limit(1)
+                    .get()
+                    .then((querySnapshot) => {
+                        if (!querySnapshot.empty) {
+                            const doc = querySnapshot.docs[0];
+                            const data = doc.data();
+                            displayResults(data);
+                        } else {
+                            // No results found, redirect to test page
+                            window.location.href = 'test.html';
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error getting results:", error);
+                        // Fallback to URL parameters if available
+                        try {
+                            const params = new URLSearchParams(window.location.search);
+                            const score = params.get('score');
+                            const total = params.get('total');
+                            const level = params.get('level');
+                            
+                            if (score && total && level) {
+                                displayResults({
+                                    score: parseInt(score),
+                                    totalQuestions: parseInt(total),
+                                    studentLevel: level
+                                });
+                            } else {
+                                window.location.href = 'test.html';
+                            }
+                        } catch (e) {
+                            window.location.href = 'test.html';
+                        }
+                    });
+            } else {
+                // Not logged in, try to get results from URL parameters
+                try {
+                    const params = new URLSearchParams(window.location.search);
+                    const score = params.get('score');
+                    const total = params.get('total');
+                    const level = params.get('level');
+                    
+                    if (score && total && level) {
+                        displayResults({
+                            score: parseInt(score),
+                            totalQuestions: parseInt(total),
+                            studentLevel: level
+                        });
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } catch (e) {
+                    window.location.href = 'index.html';
+                }
+            }
+
+            // Button event listeners
+            document.getElementById('retakeTestBtn').addEventListener('click', () => {
+                window.location.href = 'test.html';
+            });
+
+            document.getElementById('viewDetailsBtn').addEventListener('click', () => {
+                alert("Detailed results would show each question and your answers. This feature can be implemented as needed.");
+            });
+        });
+
+        function displayResults(data) {
+            console.log("Displaying results:", data);
+            
+            // Calculate percentage
+            const percentage = Math.round((data.score / data.totalQuestions) * 100);
+            
+            // Update score display
+            document.getElementById('scoreDisplay').textContent = `${data.score}/${data.totalQuestions}`;
+            document.getElementById('correctAnswers').textContent = data.score;
+            document.getElementById('percentage').textContent = `${percentage}%`;
+            
+            // Set performance level
+            let performanceText = "";
+            let performanceColor = "";
+            let recommendations = [];
+            
+            switch(data.studentLevel) {
+                case 'above_avg':
+                    performanceText = "Above Average";
+                    performanceColor = "#4cc9f0";
+                    recommendations = [
+                        "Consider advanced physics courses",
+                        "Participate in physics competitions",
+                        "Explore university-level material",
+                        "Try solving Olympiad-level problems"
+                    ];
+                    break;
+                case 'avg':
+                    performanceText = "Average";
+                    performanceColor = "#4895ef";
+                    recommendations = [
+                        "Review core concepts thoroughly",
+                        "Practice more medium-difficulty problems",
+                        "Focus on understanding rather than memorization",
+                        "Work on time management during tests"
+                    ];
+                    break;
+                default:
+                    performanceText = "Below Average";
+                    performanceColor = "#f72585";
+                    recommendations = [
+                        "Review fundamental concepts",
+                        "Start with basic problems and gradually increase difficulty",
+                        "Seek help from teachers or tutors",
+                        "Practice regularly with focused study sessions"
+                    ];
+            }
+            
+            document.getElementById('performanceLevel').textContent = performanceText;
+            document.getElementById('performanceLevel').style.color = performanceColor;
+            
+            // Display difficulty breakdown if available
+            if (data.difficultyAnalysis) {
+                const difficultyBar = document.getElementById('difficultyBar');
+                difficultyBar.innerHTML = '';
+                
+                const colors = ['#4cc9f0', '#4895ef', '#4361ee', '#3f37c9', '#3a0ca3'];
+                const levels = [1, 2, 3, 4, 5];
+                
+                levels.forEach(level => {
+                    if (data.difficultyAnalysis[level] && data.difficultyAnalysis[level].total > 0) {
+                        const correct = data.difficultyAnalysis[level].correct || 0;
+                        const total = data.difficultyAnalysis[level].total;
+                        const widthPercent = (correct / total) * 100;
+                        
+                        const segment = document.createElement('div');
+                        segment.className = 'difficulty-segment';
+                        segment.style.width = `${widthPercent}%`;
+                        segment.style.backgroundColor = colors[level-1];
+                        segment.title = `Level ${level}: ${correct}/${total} correct`;
+                        
+                        difficultyBar.appendChild(segment);
+                    }
+                });
+            }
+            
+            // Display recommendations
+            const recommendationsList = document.getElementById('recommendationsList');
+            recommendationsList.innerHTML = '';
+            
+            recommendations.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                recommendationsList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
