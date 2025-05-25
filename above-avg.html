@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Above Average - Physics Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .result-container {
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .result-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .result-message {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .recommendations {
+            background-color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        
+        .recommendations h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .recommendations ul {
+            list-style-type: none;
+        }
+        
+        .recommendations li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .recommendations li:last-child {
+            border-bottom: none;
+        }
+        
+        .recommendations li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .next-steps-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .next-steps-btn:hover {
+            background-color: #3ab7d8;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        <div class="result-card">
+            <h1 class="result-title">Outstanding Performance!</h1>
+            <p class="result-message">
+                Your test results show you have an excellent understanding of physics concepts. 
+                You're in the top tier of students with above average analytical and problem-solving skills.
+            </p>
+        </div>
+        
+        <div class="recommendations">
+            <h2>Recommended Next Steps</h2>
+            <ul>
+                <li>Advanced physics courses beyond the standard curriculum</li>
+                <li>Participation in physics olympiads and competitions</li>
+                <li>Research projects with university professors</li>
+                <li>Advanced mathematics courses to complement your physics knowledge</li>
+                <li>Independent study of quantum mechanics and relativity</li>
+            </ul>
+            
+            <a href="#" class="next-steps-btn">View Advanced Learning Resources</a>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="firebase-config.js"></script>
+</body>
+</html>
