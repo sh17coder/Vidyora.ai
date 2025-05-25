@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>Physics MCQ Test</h1>
+            <div class="timer">
+                <span id="minutes">30</span>:<span id="seconds">00</span>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="question-container" id="questionContainer">
+            <!-- Questions will be loaded here by JavaScript -->
+        </div>
+        
+        <div class="navigation-buttons">
+            <button id="prevBtn" class="nav-btn">Previous</button>
+            <button id="nextBtn" class="nav-btn">Next</button>
+            <button id="submitBtn" class="nav-btn submit-btn">Submit Test</button>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="test.js"></script>
+</body>
+</html>
